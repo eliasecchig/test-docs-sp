@@ -1,0 +1,8 @@
+title: Your Project Documentation
+description: Documentation for your project
+theme: jekyll-theme-cayman
+
+# Navigation
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
