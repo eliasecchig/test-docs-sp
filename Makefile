@@ -21,5 +21,8 @@ lint-templated-agents:
 clean:
 	rm -rf target/*
 
+docs-dev:
+	cd docs && npm run docs:dev
+
 install:
 	uv sync --dev --extra lint --frozen
