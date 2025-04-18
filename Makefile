@@ -22,7 +22,7 @@ clean:
 	rm -rf target/*
 
 docs-dev:
-	cd docs && npm install && npm run docs:dev
+	cd docs && npm install && NODE_OPTIONS="--no-warnings" npm run docs:dev
 
 install:
 	uv sync --dev --extra lint --frozen
