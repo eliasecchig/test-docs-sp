@@ -33,7 +33,7 @@ These challenges typically fall into several key areas:
 
 ## Agent Starter Pack: An Approach
 
-![ags](images/ags_banner.png)
+![ags](../images/ags_banner.png)
 
 
 The Agent Starter Pack provides one possible approach to reduce this time-to-production by aiming to provide a holistic solution for developers building robust, scalable, and secure GenAI applications and agents on Google Cloud Platform (GCP).  It offers a **possible solution** to the challenges outlined above by providing:

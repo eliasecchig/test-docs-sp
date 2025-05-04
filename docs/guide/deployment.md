@@ -1,168 +1,127 @@
-# Deployment Guide
+# Deployment
 
-This guide explains how to deploy agents created with the Agent Starter Pack to Google Cloud.
+The templated agent leverages [**Terraform**](http://terraform.io) to define and provision the underlying infrastructure, while [**Cloud Build**](https://cloud.google.com/build/) orchestrates the continuous integration and continuous deployment (CI/CD) pipeline.
 
-## Deployment Options
+## Deployment Workflow
 
-The Agent Starter Pack supports two primary deployment options:
+![Deployment Workflow](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/deployment_workflow.png)
 
-1. **Cloud Run** - Deploy your agent as a containerized service on Cloud Run
-2. **Agent Engine** - Deploy using Vertex AI Agent Engine, a fully managed solution
+**Description:**
 
-## Prerequisites
+1. CI Pipeline (`deployment/ci/pr_checks.yaml`):
 
-Before deploying, ensure you have:
+   - Triggered on pull request creation/update
+   - Runs unit and integration tests
 
-- A Google Cloud project with billing enabled
-- Appropriate IAM permissions
-- Google Cloud SDK installed and configured
-- Terraform installed (version 1.0.0+)
+2. CD Pipeline (`deployment/cd/staging.yaml`):
 
-## Deploying to Cloud Run
+   - Triggered on merge to `main` branch
+   - Builds and pushes application to Artifact Registry
+   - Deploys to staging environment
+   - Performs load testing
 
-### 1. Set up your environment
+3. Production Deployment (`deployment/cd/deploy-to-prod.yaml`):
+   - Triggered after successful staging deployment
+   - Requires manual approval
+   - Deploys to production environment
+
+## Setup
+
+> **Note:** For a streamlined one-command deployment of the entire CI/CD pipeline and infrastructure using Terraform, you can use the [`agent-starter-pack setup-cicd` CLI command](./cli/setup_cicd.md). Currently only supporting Github.
+
+**Prerequisites:**
+
+1. A set of Google Cloud projects:
+   - Staging project
+   - Production project
+   - CI/CD project (can be the same as staging or production)
+2. Terraform installed on your local machine
+3. Enable required APIs in the CI/CD project. This will be required for the Terraform deployment:
+
+   ```bash
+   gcloud config set project $YOUR_CI_CD_PROJECT_ID
+   gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com
+   ```
+
+## Step-by-Step Guide
+
+1. **Create a Git Repository using your favorite Git provider (GitHub, GitLab, Bitbucket, etc.)**
+
+2. **Connect Your Repository to Cloud Build**
+   For detailed instructions, visit: [Cloud Build Repository Setup](https://cloud.google.com/build/docs/repositories#whats_next).<br>
+
+   ![Alt text](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/connection_cb.gif)
+
+3. **Configure Terraform Variables**
+
+   - Edit [`deployment/terraform/vars/env.tfvars`](../terraform/vars/env.tfvars) with your Google Cloud settings.
+
+   | Variable               | Description                                                     | Required |
+   | ---------------------- | --------------------------------------------------------------- | :------: |
+   | project_name           | Project name used as a base for resource naming                 |   Yes    |
+   | prod_project_id        | **Production** Google Cloud Project ID for resource deployment. |   Yes    |
+   | staging_project_id     | **Staging** Google Cloud Project ID for resource deployment.    |   Yes    |
+   | cicd_runner_project_id | Google Cloud Project ID where CI/CD pipelines will execute.     |   Yes    |
+   | region                 | Google Cloud region for resource deployment.                    |   Yes    |
+   | host_connection_name   | Name of the host connection you created in Cloud Build          |   Yes    |
+   | repository_name        | Name of the repository you added to Cloud Build                 |   Yes    |
+
+   Other optional variables may include: telemetry and feedback log filters, service account roles, and for projects requiring data ingestion: pipeline cron schedule, pipeline roles, and datastore-specific configurations.
+
+4. **Deploy Infrastructure with Terraform**
+
+   - Open a terminal and navigate to the Terraform directory:
+
+   ```bash
+   cd deployment/terraform
+   ```
+
+   - Initialize Terraform:
+
+   ```bash
+   terraform init
+   ```
+
+   - Apply the Terraform configuration:
+
+   ```bash
+   terraform apply --var-file vars/env.tfvars
+   ```
+
+   - Type 'yes' when prompted to confirm
+
+After completing these steps, your infrastructure will be set up and ready for deployment!
+
+## Dev Deployment
+
+For End-to-end testing of the application, including tracing and feedback sinking to BigQuery, without the need to trigger a CI/CD pipeline.
+
+
+First, enable required Google Cloud APIs:
 
 ```bash
-# Set your project ID
-export PROJECT_ID=your-project-id
-export REGION=us-central1
-
-# Configure gcloud
-gcloud config set project $PROJECT_ID
+gcloud config set project <your-dev-project-id>
+gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com
 ```
 
-### 2. Deploy using Terraform
-
-The Agent Starter Pack includes Terraform configurations for deployment:
+After you edited the relative [`env.tfvars` file](../terraform/dev/vars/env.tfvars), follow the following instructions:
 
 ```bash
-cd my-agent/deployment/terraform/dev
-
-# Initialize Terraform
+cd deployment/terraform/dev
 terraform init
-
-# Apply the configuration
-terraform apply -var="dev_project_id=$PROJECT_ID" -var="region=$REGION"
+terraform apply --var-file vars/env.tfvars
 ```
 
-### 3. Access your deployed agent
-
-After deployment completes, Terraform will output the URL of your deployed agent.
-
-## Deploying to Agent Engine
-
-### 1. Prepare your agent for Agent Engine
+Then deploy the application using the following command (from the root of the repository):
 
 ```bash
-agent-starter-pack create my-agent -d agent_engine -a adk_base
+make backend
 ```
 
-### 2. Deploy to Agent Engine
+> Note: the Makefile also offers a command to automate the dev terraform apply setup. `make setup-dev-env`
 
-```bash
-cd my-agent
-agent-starter-pack deploy
-```
+### End-to-end Demo video
 
-## CI/CD Setup
-
-For automated deployments, you can set up CI/CD:
-
-```bash
-agent-starter-pack setup-cicd
-```
-
-This will configure a GitHub Actions workflow for continuous deployment.
-
-## Troubleshooting
-
-If you encounter issues during deployment, check:
-
-- IAM permissions
-- Project quotas
-- Service account configurations
-
-For more detailed troubleshooting, see the [Troubleshooting Guide](./troubleshooting.md).
-# Deployment Guide
-
-This guide explains how to deploy agents created with the Agent Starter Pack to Google Cloud.
-
-## Deployment Options
-
-The Agent Starter Pack supports two primary deployment options:
-
-1. **Cloud Run** - Deploy your agent as a containerized service on Cloud Run
-2. **Agent Engine** - Deploy using Vertex AI Agent Engine, a fully managed solution
-
-## Prerequisites
-
-Before deploying, ensure you have:
-
-- A Google Cloud project with billing enabled
-- Appropriate IAM permissions
-- Google Cloud SDK installed and configured
-- Terraform installed (version 1.0.0+)
-
-## Deploying to Cloud Run
-
-### 1. Set up your environment
-
-```bash
-# Set your project ID
-export PROJECT_ID=your-project-id
-export REGION=us-central1
-
-# Configure gcloud
-gcloud config set project $PROJECT_ID
-```
-
-### 2. Deploy using Terraform
-
-The Agent Starter Pack includes Terraform configurations for deployment:
-
-```bash
-cd my-agent/deployment/terraform/dev
-
-# Initialize Terraform
-terraform init
-
-# Apply the configuration
-terraform apply -var="dev_project_id=$PROJECT_ID" -var="region=$REGION"
-```
-
-### 3. Access your deployed agent
-
-After deployment completes, Terraform will output the URL of your deployed agent.
-
-## Deploying to Agent Engine
-
-### 1. Prepare your agent for Agent Engine
-
-```bash
-agent-starter-pack create my-agent -d agent_engine -a adk_base
-```
-
-### 2. Deploy to Agent Engine
-
-```bash
-cd my-agent
-agent-starter-pack deploy
-```
-
-## CI/CD Setup
-
-For automated deployments, you can set up CI/CD:
-
-```bash
-agent-starter-pack setup-cicd
-```
-
-This will configure a GitHub Actions workflow for continuous deployment.
-
-## Troubleshooting
-
-If you encounter issues during deployment, check:
-
-- IAM permissions
-- Project quotas
-- Service account configurations
+<a href="https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/template_deployment_demo.mp4">
+  <img src="https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/preview_video.png" alt="Watch the video" width="300"/>
+</a>

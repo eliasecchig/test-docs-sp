@@ -4,39 +4,43 @@ title: Home
 
 hero:
   name: Agent Starter Pack
-  text: Production-ready Generative AI Agent templates
-  tagline: Accelerate your agent development on Google Cloud
+  text: Build Production-Ready GenAI Agents on Google Cloud
+  tagline: Go from idea to deployment faster with pre-built templates & tools.
   actions:
     - theme: brand
-      text: Get Started
+      text: Get Started Guide
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
       link: https://github.com/GoogleCloudPlatform/agent-starter-pack
 
 features:
-  - title: Ready-to-use Templates
-    details: Multiple agent templates including ReAct, RAG, multi-agent, and multimodal capabilities
-  - title: Production Infrastructure
-    details: Built-in deployment, monitoring, and observability for Google Cloud
-  - title: Customizable
-    details: Extend and customize templates to meet your specific requirements
-  - title: Evaluation Ready
-    details: Integrated with Vertex AI evaluation for agent testing and improvement
+  - icon: ⚡️
+    title: Launch Quickly
+    details: Start fast with pre-built agent templates (ReAct, RAG, multi-agent, Live Multimodal API) implementing common patterns.
+  - icon: 🧪
+    title: Experiment & Evaluate
+    details: Iterate using integrated Vertex AI evaluation and an interactive testing playground.
+  - icon: ☁️
+    title: Deploy Confidently
+    details: Ship reliable agents with production-ready infra (Cloud Run / Agent Engine) featuring monitoring, observability, and CI/CD.
+  - icon: 🛠️
+    title: Customize & Extend
+    details: Adapt and enhance templates and infrastructure for your specific use case.
 ---
 
-# Agent Starter Pack Documentation
+::: tip ⭐ Like Agent Starter Pack?
+Help us spread the word by giving us a star on GitHub!
 
-Welcome to the official documentation for the Agent Starter Pack!
-
-## Overview
-
-The Agent Starter Pack is a collection of production-ready Generative AI Agent templates built for Google Cloud. It accelerates development by providing a holistic, production-ready solution, addressing common challenges in building and deploying GenAI agents.
+<a href="https://github.com/GoogleCloudPlatform/agent-starter-pack/stargazers" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 8px;"> <!-- Link the badge too! -->
+  ![GitHub Stars](https://img.shields.io/github/stars/GoogleCloudPlatform/agent-starter-pack?style=social&color=yellow) <!-- Added style=social for better look -->
+</a>
+:::
 
 ## Quick Links
 
-- [Getting Started](/guide/getting-started)
-- [Installation Guide](/guide/installation)
-- [Deployment Guide](/guide/deployment)
-- [Agent Templates](/agents/)
-- [CLI Reference](/cli/)
+- **New Users:** [Getting Started Guide](/guide/getting-started)
+- **Setup:** [Installation Guide](/guide/installation)
+- **Going Live:** [Deployment Guide](/guide/deployment)
+- **Explore Templates:** [Agent Templates Overview](/agents/)
+- **Command Line:** [CLI Reference](/cli/)

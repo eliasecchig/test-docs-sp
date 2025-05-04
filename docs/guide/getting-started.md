@@ -1,81 +1,75 @@
-# Getting Started
 
-Welcome to the Agent Starter Pack! This guide will walk you through the initial steps to get your first agent project up and running.
+# 🚀 Getting Started
 
-## Prerequisites
+This guide quickly walks you through setting up your first agent project.
 
-Before you begin, ensure you have the following installed:
+**Want zero setup?** 👉 [Try in Firebase Studio](https://studio.firebase.google.com/new?template=https%3A%2F%2Fgithub.com%2FGoogleCloudPlatform%2Fagent-starter-pack%2Ftree%2Fmain%2Fsrc%2Fresources%2Fidx)
 
--   **Python:** Version 3.10 or higher.
--   **Google Cloud SDK:** [Installation Guide](https://cloud.google.com/sdk/docs/install). Make sure you've authenticated using `gcloud auth login` and `gcloud auth application-default login`.
--   **Terraform:** [Installation Guide](https://developer.hashicorp.com/terraform/downloads). Required for deploying the infrastructure.
+### Prerequisites
 
-## Installation
+Ensure you have:
 
-The easiest way to get started is by installing the `agent-starter-pack` CLI tool using pip.
+1.  **Python 3.10+**
+2.  **Google Cloud SDK:** Installed and authenticated (`gcloud auth login` and `gcloud auth application-default login`). [Install Guide](https://cloud.google.com/sdk/docs/install).
+3.  **Terraform:** [Install Guide](https://developer.hashicorp.com/terraform/downloads).
 
-1.  **Create and activate a Python virtual environment (Recommended):**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+### 1. Install the Starter Pack
 
-2.  **Install the package:**
-    ```bash
-    pip install agent-starter-pack
-    ```
+```bash
+# Create and activate a Python virtual environment (Recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-## Create Your First Agent Project
+# Install the package
+pip install agent-starter-pack
+```
 
-Now you can create a new agent project using the CLI:
+### 2. Create Your Agent Project
+
+Run the `create` command and follow the prompts:
 
 ```bash
 agent-starter-pack create my-awesome-agent
 ```
 
-This command will:
+This command:
+*   Lets you choose an agent template (e.g., `adk_base`, `agentic_rag`).
+*   Lets you select a deployment target (e.g., `cloud_run`, `agent_engine`).
+*   Generates a complete project structure (backend, optional frontend, deployment infra).
 
-1.  Ask you to select an agent template (e.g., `adk_base`, `agentic_rag`).
-2.  Ask you to select a deployment target (e.g., `cloud_run`, `agent_engine`).
-3.  Prompt for necessary Google Cloud project IDs and configuration details.
-4.  Generate a complete project structure with backend code, frontend (optional), and Terraform infrastructure-as-code for deployment.
-
-Follow the prompts, and you'll have a functional agent project ready in minutes!
-
-**Example: Creating a RAG agent for Cloud Run:**
+**Examples:**
 
 ```bash
-# Select 'agentic_rag' and 'cloud_run' when prompted
+# Create a RAG agent for Cloud Run (select options when prompted)
 agent-starter-pack create my-rag-agent
-```
 
-**Example: Creating a base ADK agent for Agent Engine:**
-
-```bash
+# Create a base ADK agent for Agent Engine directly
 agent-starter-pack create my-adk-agent -a adk_base -d agent_engine
 ```
 
-## Explore Your New Project
+### 3. Explore and Run Locally
 
-Once created, navigate into your project directory (`cd my-awesome-agent`). You'll find:
+```bash
+cd my-awesome-agent
+```
 
--   `app/`: Backend agent code.
--   `frontend/`: Streamlit frontend code (if applicable).
--   `deployment/`: Terraform code for infrastructure.
--   `README.md`: Project-specific instructions.
+Inside your new project directory (`my-awesome-agent`), you'll find:
 
-## Next Steps
+*   `app/`: Backend agent code.
+*   `frontend/`: Streamlit frontend (if applicable).
+*   `deployment/`: Terraform infrastructure code.
+*   `README.md`: **Project-specific instructions for running locally and deploying.**
 
-You're all set! Here are some suggestions for what to do next:
+➡️ **Follow the instructions in *your new project's* `README.md` to run it locally.**
 
--   **Run Locally:** Follow the instructions in your new project's `README.md` to run the agent and frontend on your local machine.
--   **Deploy:** Use the provided Terraform scripts in the `deployment/` directory to deploy your agent to Google Cloud. See the [Deployment Guide](deployment.md) for details.
--   **Customize:** Modify the agent logic in `app/` or the frontend in `frontend/` to suit your needs.
--   **Explore Features:**
-    -   [CI/CD Setup](cli/setup_cicd.md): Automate your deployment pipeline.
-    -   [Data Ingestion for RAG](data-ingestion.md): Set up pipelines for RAG agents.
-    -   [Observability](observability.md): Learn about monitoring and logging.
--   **Try in Firebase Studio:** [Launch a template directly in Firebase Studio](https://studio.firebase.google.com/new?template=https%3A%2F%2Fgithub.com%2FGoogleCloudPlatform%2Fagent-starter-pack%2Ftree%2Fmain%2Fsrc%2Fresources%2Fidx) with zero local setup.
--   **Watch the Overview:** Get a quick [1-Minute Video Overview](https://youtu.be/jHt-ZVD660g).
+### Next Steps
 
-Refer to the main [Documentation Index](README.md) for a full overview of available guides.
+You're ready to go!
+
+*   **Deploy:** Use Terraform in `deployment/` to deploy to Google Cloud ([Deployment Guide](docs/deployment.md)).
+*   **Customize:** Modify the code in `app/` or `frontend/`.
+*   **Automate:** Set up [CI/CD](docs/cli/setup_cicd.md).
+*   **Add Data (RAG):** Configure [Data Ingestion](docs/data-ingestion.md).
+*   **Monitor:** Explore [Observability](docs/observability.md) features.
+*   **Watch:** [1-Minute Video Overview](https://youtu.be/jHt-ZVD660g).
+*   **Learn More:** See the main [Documentation](docs/README.md).
