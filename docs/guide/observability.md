@@ -1,10 +1,10 @@
-## Monitoring and Observability
+# Monitoring and Observability
 
 ![monitoring_flow](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/monitoring_flow.png)
 
 ### Trace and Log Capture
 
-Templated agents utilize [OpenTelemetry](https://opentelemetry.io/) and [OpenLLMetry](https://github.com/traceloop/openllmetry) for comprehensive observability, emitting events to Google Cloud Trace and Google Cloud Logging. Every interaction with LangChain and VertexAI is instrumented (see [`server.py`](server.py)), enabling detailed tracing of request flows throughout agents built with this framework.
+Templated agents utilize [OpenTelemetry](https://opentelemetry.io/) for comprehensive observability, emitting events to Google Cloud Trace and Google Cloud Logging. Every interaction with the LLM instrumented, enabling detailed tracing of request flows throughout agents built with this framework.
 
 Leveraging the [CloudTraceSpanExporter](https://cloud.google.com/python/docs/reference/spanner/latest/opentelemetry-tracing), the framework captures and exports tracing data. To address the limitations of Cloud Trace ([256-byte attribute value limit](https://cloud.google.com/trace/docs/quotas#limits_on_spans)) and [Cloud Logging](https://cloud.google.com/logging/quotas) ([256KB log entry size](https://cloud.google.com/logging/quotas)), a custom extension of the CloudTraceSpanExporter is implemented in [`app/utils/tracing.py`](app/utils/tracing.py).
 
@@ -21,7 +21,7 @@ Events are forwarded to BigQuery through a [log router](https://cloud.google.com
 
 ### Looker Studio Dashboard
 
-Once the data is written to BigQuery, it can be used to populate a [Looker Studio dashboard](https://lookerstudio.google.com/c/reporting/fa742264-4b4b-4c56-81e6-a667dd0f853f/page/tEnnC).
+Once the data is written to BigQuery, it can be used to populate a [Looker Studio dashboard](https://lookerstudio.google.com/c/reporting/46b35167-b38b-4e44-bd37-701ef4307418/page/tEnnC). Use [this dashboard](https://lookerstudio.google.com/c/reporting/fa742264-4b4b-4c56-81e6-a667dd0f853f/page/tEnnC) if using non-ADK agents.
 
 This dashboard template provides a starting point for building custom visualizations on top of the captured data.
 

@@ -5,12 +5,27 @@ export default defineConfig({
   title: 'Agent Starter Pack',
   description: 'Accelerate your agent development on Google Cloud',
 
+  // Add custom CSS for Roboto font
+  head: [
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap', rel: 'stylesheet' }],
+    ['style', {}, `
+      :root {
+        --vp-font-family-base: 'Roboto', sans-serif;
+        --vp-font-family-mono: 'Roboto Mono', monospace;
+        --vp-c-text-1: 0.9rem;
+        --vp-font-size-base: 0.9rem;
+      }
+    `]
+  ],
+
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'Agents', link: '/agents/' },
-      { text: 'CLI', link: '/cli/' }
+      { text: 'Agents', link: '/agents/overview' },
+      { text: 'CLI', link: '/cli/README.md' }
     ],
     sidebar: [
       {
@@ -28,16 +43,15 @@ export default defineConfig({
       {
         text: 'Agents',
         items: [
-          { text: 'Overview', link: '/agents/' },
+          { text: 'Overview', link: '/agents/overview' },
 
         ]
       },
       {
         text: 'CLI Reference',
         items: [
-          { text: 'Overview', link: '/cli/' },
-          { text: 'Create Command', link: '/cli/create' },
-          { text: 'Setup CI/CD', link: '/cli/setup_cicd' }
+          { text: 'create', link: '/cli/create' },
+          { text: 'setup-cicd', link: '/cli/setup_cicd' }
         ]
       }
     ],

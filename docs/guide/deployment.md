@@ -1,5 +1,9 @@
 # Deployment
 
+::: tip ⭐ Streamlined Deployment
+For a streamlined one-command deployment of the entire CI/CD pipeline and infrastructure using Terraform, you can use the [`agent-starter-pack setup-cicd` CLI command](../cli/setup_cicd). Currently only supporting Github.
+:::
+
 The templated agent leverages [**Terraform**](http://terraform.io) to define and provision the underlying infrastructure, while [**Cloud Build**](https://cloud.google.com/build/) orchestrates the continuous integration and continuous deployment (CI/CD) pipeline.
 
 ## Deployment Workflow
@@ -26,8 +30,6 @@ The templated agent leverages [**Terraform**](http://terraform.io) to define and
    - Deploys to production environment
 
 ## Setup
-
-> **Note:** For a streamlined one-command deployment of the entire CI/CD pipeline and infrastructure using Terraform, you can use the [`agent-starter-pack setup-cicd` CLI command](./cli/setup_cicd.md). Currently only supporting Github.
 
 **Prerequisites:**
 
