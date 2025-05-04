@@ -66,6 +66,12 @@ export default defineConfig({
       // { icon: 'twitter', link: '...' },
     ],
 
+    // Explicitly enable and configure local search
+    // Although enabled by default, this makes the configuration clear
+    search: {
+      provider: 'local'
+    },
+
     footer: {
       message: 'Released under the Apache 2.0 License.'
     }
