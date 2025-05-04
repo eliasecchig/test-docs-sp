@@ -50,4 +50,4 @@ The Agent Starter Pack provides one possible approach to reduce this time-to-pro
 
 *   **GCP Native Observability:** Integrated monitoring and logging using Cloud Trace and Cloud Logging, including a pre-built Looker dashboard for visualizing key metrics. This provides immediate insights into your agent's performance and health.
 
-*    **Evaluation** An interactive playground to help you evaluate and test, along with getting started notebooks for evaluation.
+*   **Evaluation Support:** Includes an interactive playground for testing and dedicated notebooks to guide evaluation processes.
