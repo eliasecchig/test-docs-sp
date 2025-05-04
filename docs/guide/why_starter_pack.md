@@ -1,4 +1,5 @@
-# Why a Starter Pack? Accelerating GenAI Agent Development on Google Cloud
+# Why a Starter Pack? 
+> Accelerating GenAI Agent Development on Google Cloud
 
 Operationalizing Generative AI Agents can be a complex and time-consuming process.  Many developers and organizations face similar challenges, often taking many months to move from a successful Proof of Concept (PoC) to a production-ready GenAI application.  
 
