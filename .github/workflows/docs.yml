@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'docs/**'
+      - '.github/workflows/docs-pages.yml' # Trigger on workflow changes too
   # Allow manual trigger
   workflow_dispatch:
 
@@ -13,37 +14,43 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
+# Allow only one concurrent deployment, cancel on new push
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true # Changed to true, usually desired
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Updated
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4 # Updated
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: docs/package.json
-      
+          # Assuming you have a package-lock.json in your docs folder
+          cache-dependency-path: docs/package-lock.json 
+          # If not, use docs/package.json, but generate a lock file for better caching
+
       - name: Install dependencies
-        run: cd docs && npm install
+        working-directory: docs # Added
+        run: npm ci # 'ci' is generally preferred in CI environments over 'install'
       
       - name: Build VitePress site
-        run: cd docs && npm run docs:build
+        working-directory: docs # Added
+        run: npm run docs:build
       
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        id: pages # Added id for potential future use, good practice
+        uses: actions/configure-pages@v5 # Updated
       
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3 # Updated
         with:
+          # Path to the directory to upload
           path: docs/.vitepress/dist
 
   deploy:
@@ -55,4 +62,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4 # Updated
