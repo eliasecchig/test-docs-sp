@@ -4,7 +4,7 @@ export default defineConfig({
   // Site-level configuration
   title: 'Agent Starter Pack',
   description: 'Build Production Agents faster',
-
+  base: '/agent-starter-pack/',
   // Add custom CSS for Roboto font
   head: [
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
