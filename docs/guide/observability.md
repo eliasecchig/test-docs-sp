@@ -6,7 +6,7 @@
 
 Templated agents utilize [OpenTelemetry](https://opentelemetry.io/) for comprehensive observability, emitting events to Google Cloud Trace and Google Cloud Logging. Every interaction with the LLM instrumented, enabling detailed tracing of request flows throughout agents built with this framework.
 
-Leveraging the [CloudTraceSpanExporter](https://cloud.google.com/python/docs/reference/spanner/latest/opentelemetry-tracing), the framework captures and exports tracing data. To address the limitations of Cloud Trace ([256-byte attribute value limit](https://cloud.google.com/trace/docs/quotas#limits_on_spans)) and [Cloud Logging](https://cloud.google.com/logging/quotas) ([256KB log entry size](https://cloud.google.com/logging/quotas)), a custom extension of the CloudTraceSpanExporter is implemented in [`app/utils/tracing.py`](app/utils/tracing.py).
+Leveraging the [CloudTraceSpanExporter](https://cloud.google.com/python/docs/reference/spanner/latest/opentelemetry-tracing), the framework captures and exports tracing data. To address the limitations of Cloud Trace ([256-byte attribute value limit](https://cloud.google.com/trace/docs/quotas#limits_on_spans)) and [Cloud Logging](https://cloud.google.com/logging/quotas) ([256KB log entry size](https://cloud.google.com/logging/quotas)), a custom extension of the CloudTraceSpanExporter is implemented in `app/utils/tracing.py` of the templated project.
 
 This extension enhances observability by:
 
@@ -17,7 +17,7 @@ Logged payloads are associated with the original trace, ensuring seamless access
 
 ### Log Router
 
-Events are forwarded to BigQuery through a [log router](https://cloud.google.com/logging/docs/routing/overview) for long-term storage and analysis. The deployment of the log router is handled via Terraform code in [deployment/terraform](../deployment/terraform).
+Events are forwarded to BigQuery through a [log router](https://cloud.google.com/logging/docs/routing/overview) for long-term storage and analysis. The deployment of the log router is handled via Terraform code in `deployment/terraform` in the templated project.
 
 ### Looker Studio Dashboard
 

@@ -90,4 +90,4 @@ agent-starter-pack setup-cicd \
 
 ## Manual CI/CD Setup (Recommended for Production)
 
-For robust, production-ready deployments with fine-grained control over security, customization, and advanced CI/CD practices, please follow the [manual setup guide](../deployment.md).
+For robust, production-ready deployments with fine-grained control over security, customization, and advanced CI/CD practices, please follow the [manual setup guide](../guide/deployment.md).
