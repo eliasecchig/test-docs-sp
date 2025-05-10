@@ -40,20 +40,20 @@ jobs:
       - name: Build VitePress site
         working-directory: docs
         run: |
-          # Fix the config file modification to avoid duplicate exports
-          if [ -f .vitepress/config.js ]; then
-            # Create a backup of the original config
-            cp .vitepress/config.js .vitepress/config.js.bak
-            # Create a new config that imports the original and adds ignoreDeadLinks
-            echo "import originalConfig from './.vitepress/config.js.bak';" > .vitepress/config.js
-            echo "export default { ...originalConfig, ignoreDeadLinks: true };" >> .vitepress/config.js
-          elif [ -f .vitepress/config.ts ]; then
-            # Create a backup of the original config
-            cp .vitepress/config.ts .vitepress/config.ts.bak
-            # Create a new config that imports the original and adds ignoreDeadLinks
-            echo "import originalConfig from './.vitepress/config.ts.bak';" > .vitepress/config.ts
-            echo "export default { ...originalConfig, ignoreDeadLinks: true };" >> .vitepress/config.ts
-          fi
+          # # Fix the config file modification to avoid duplicate exports
+          # if [ -f .vitepress/config.js ]; then
+          #   # Create a backup of the original config
+          #   cp .vitepress/config.js .vitepress/config.js.bak
+          #   # Create a new config that imports the original and adds ignoreDeadLinks
+          #   echo "import originalConfig from './config.js.bak';" > .vitepress/config.js
+          #   echo "export default { ...originalConfig, ignoreDeadLinks: true };" >> .vitepress/config.js
+          # elif [ -f .vitepress/config.ts ]; then
+          #   # Create a backup of the original config
+          #   cp .vitepress/config.ts .vitepress/config.ts.bak
+          #   # Create a new config that imports the original and adds ignoreDeadLinks
+          #   echo "import originalConfig from './config.ts.bak';" > .vitepress/config.ts
+          #   echo "export default { ...originalConfig, ignoreDeadLinks: true };" >> .vitepress/config.ts
+          # fi
           npm run docs:build
       
       - name: Setup Pages
