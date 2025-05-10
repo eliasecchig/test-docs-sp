@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   // Site-level configuration
   title: 'Agent Starter Pack',
-  description: 'Accelerate your agent development on Google Cloud',
+  description: 'Build Production Agents faster',
 
   // Add custom CSS for Roboto font
   head: [
@@ -25,7 +25,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Agents', link: '/agents/overview' },
-      { text: 'CLI', link: '/cli/README.md' }
+      { text: 'CLI', link: '/cli/index.md' }
     ],
     sidebar: [
       {
@@ -55,19 +55,12 @@ export default defineConfig({
         ]
       }
     ],
-    // Add or modify the socialLinks array
     socialLinks: [
-      // This entry adds the GitHub icon link to the top right navbar
       { 
         icon: 'github', // VitePress recognizes 'github' and uses the correct icon
         link: 'https://github.com/GoogleCloudPlatform/agent-starter-pack' 
       },
-      // You can add other links too (e.g., twitter, discord)
-      // { icon: 'twitter', link: '...' },
     ],
-
-    // Explicitly enable and configure local search
-    // Although enabled by default, this makes the configuration clear
     search: {
       provider: 'local'
     },

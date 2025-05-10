@@ -4,7 +4,7 @@ title: Home
 
 hero:
   name: Agent Starter Pack
-  text: Build Production-Ready GenAI Agents on Google Cloud
+  text: Production-Ready  Agents on Google Cloud, faster
   tagline: Go from idea to deployment faster with pre-built templates & tools.
   actions:
     - theme: brand
@@ -42,5 +42,5 @@ Help us spread the word by giving us a star on GitHub!
 - **New Users:** [Getting Started Guide](/guide/getting-started)
 - **Setup:** [Installation Guide](/guide/installation)
 - **Going Live:** [Deployment Guide](/guide/deployment)
-- **Explore Templates:** [Agent Templates Overview](/agents/)
+- **Explore Templates:** [Agent Templates Overview](/agents/overview)
 - **Command Line:** [CLI Reference](/cli/)
