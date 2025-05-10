@@ -24,42 +24,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 # Updated
+        uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v4 # Updated
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
-          # Assuming you have a package-lock.json in your docs folder
-          cache-dependency-path: docs/package-lock.json 
-          # If not, use docs/package.json, but generate a lock file for better caching
+          cache-dependency-path: docs/package-lock.json
 
       - name: Install dependencies
-        working-directory: docs # Added
-        run: npm ci # 'ci' is generally preferred in CI environments over 'install'
+        working-directory: docs
+        run: npm ci
       
       - name: Build VitePress site
-        working-directory: docs # Added
+        working-directory: docs
         run: |
-          # Configure VitePress to ignore dead links
-          echo "export default { ignoreDeadLinks: true }" > .vitepress/config.temp.js
+          # Fix the config file modification to avoid duplicate exports
           if [ -f .vitepress/config.js ]; then
-            cat .vitepress/config.js >> .vitepress/config.temp.js
-            mv .vitepress/config.temp.js .vitepress/config.js
+            # Create a backup of the original config
+            cp .vitepress/config.js .vitepress/config.js.bak
+            # Create a new config that imports the original and adds ignoreDeadLinks
+            echo "import originalConfig from './.vitepress/config.js.bak';" > .vitepress/config.js
+            echo "export default { ...originalConfig, ignoreDeadLinks: true };" >> .vitepress/config.js
           elif [ -f .vitepress/config.ts ]; then
-            echo "import { defineConfig } from 'vitepress'; const baseConfig = defineConfig({ignoreDeadLinks: true}); export default baseConfig;" > .vitepress/config.temp.ts
-            cat .vitepress/config.ts >> .vitepress/config.temp.ts
-            mv .vitepress/config.temp.ts .vitepress/config.ts
+            # Create a backup of the original config
+            cp .vitepress/config.ts .vitepress/config.ts.bak
+            # Create a new config that imports the original and adds ignoreDeadLinks
+            echo "import originalConfig from './.vitepress/config.ts.bak';" > .vitepress/config.ts
+            echo "export default { ...originalConfig, ignoreDeadLinks: true };" >> .vitepress/config.ts
           fi
           npm run docs:build
       
       - name: Setup Pages
-        id: pages # Added id for potential future use, good practice
-        uses: actions/configure-pages@v5 # Updated
+        id: pages
+        uses: actions/configure-pages@v5
       
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # Updated
+        uses: actions/upload-pages-artifact@v3
         with:
           # Path to the directory to upload
           path: docs/.vitepress/dist
@@ -73,4 +75,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # Updated
+        uses: actions/deploy-pages@v4
