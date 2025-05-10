@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'docs/**'
-      - '.github/workflows/docs-pages.yml' # Trigger on workflow changes too
+      - '.github/workflows/docs.yml'
   # Allow manual trigger
   workflow_dispatch:
 
